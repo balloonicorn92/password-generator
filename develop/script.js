@@ -12,8 +12,8 @@ var passLength;
 
 var makeRandom = function(a) {
     var possibleNumbers = Math.floor(Math.random() * a.length);
-    var possibleOptionsIndex = a[possibleNumbers];
-    return possibleOptionsIndex;
+   return a[possibleNumbers];
+
 }
 
 var UserPrompt = function() {
@@ -31,7 +31,7 @@ var UserPrompt = function() {
         var special = confirm("Would you like to have special characters in your passwords?");
         var upper = confirm("Would you like to have upper case letters in your password?");
         var lower = confirm("Would you like to have lower case letters in your password?");
-        var numbers = confirm("Would you like to have lower case letters in your password?");
+        var numbers = confirm("Would you like to have numbers in your password?");
 
         //if the input is between 8 and 128 then store input in userResponse
         var userResponse = {
@@ -41,7 +41,6 @@ var UserPrompt = function() {
             lower: lower,
             numbers: numbers
         }
-        console.log(userResponse);
         return userResponse;
     };
 
@@ -53,29 +52,28 @@ var UserPrompt = function() {
         //if prompt is true add special to possible options array
         if (userOption.special) {
             possibleOptionsArr = possibleOptionsArr.concat(specialCharacters);
-            possibleOptionsArr.push(specialCharacters);
         }
         //if prompt is true add uppers array to possible options array
         if (userOption.upper) {
             possibleOptionsArr = possibleOptionsArr.concat(upperLetters);
-            possibleOptionsArr.push(upperLetters);
         }
         //if prompt is true add lower to possible options array
         if (userOption.lower) {
             possibleOptionsArr = possibleOptionsArr.concat(lowerLetters);
-            possibleOptionsArr.push(lowerLetters);
         }
         //if prompt is true add numbers to possible options array
         if (userOption.numbers) {
             possibleOptionsArr = possibleOptionsArr.concat(numbersArr);
-            possibleOptionsArr.push(numbersArr);
         }
         //depending on input length then get x amount of elements from possible options array and store in newpassword array
         for (var i=0; i < userOption.passLength; i++) {
             var actualReturnValue = makeRandom(possibleOptionsArr);
             newPassword.push(actualReturnValue);
         }
-        console.log(newPassword);
+        var joinedPassword = newPassword.join('');
+        console.log(joinedPassword);
+        return joinedPassword;
+        
     };
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -87,7 +85,7 @@ function writePassword() {
 
   passwordText.value = password;
 
-}
+};
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
